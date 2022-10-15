@@ -1,4 +1,4 @@
-package com.shankarsan.raspialarm.client.serialization;
+package com.shankarsan.raspialarm.client.reactor.serialization;
 
 import org.apache.kafka.common.serialization.Serializer;
 import org.springframework.stereotype.Component;
