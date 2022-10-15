@@ -1,0 +1,8 @@
+server:
+  port: 4001
+appconfig:
+  kafka:
+    bootstrap-servers: 129.154.37.114:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: com.shankarsan.raspialarm.client.serialization.MessageSerializer
