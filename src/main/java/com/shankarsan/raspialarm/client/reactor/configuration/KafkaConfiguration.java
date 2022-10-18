@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.shankarsan.raspialarm.common.dto.KafkaPayload;
-import com.shankarsan.raspialarm.common.dto.MessageDTO;
+import com.shankarsan.raspialarm.common.dto.PayloadDTO;
 
 import reactor.kafka.sender.KafkaSender;
 import reactor.kafka.sender.SenderOptions;
@@ -21,7 +21,7 @@ public class KafkaConfiguration {
 	@Autowired private ProducerProperties producerProperties;
 	
 	@Bean("SenderOptions")
-	public SenderOptions<String, KafkaPayload<MessageDTO>> getSenderOptions(){
+	public SenderOptions<String, KafkaPayload<? extends PayloadDTO>> getSenderOptions(){
 		Map<String, Object> configProperties = new HashMap<>();
 		configProperties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, producerProperties.getBootstrapServers());
 		configProperties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, producerProperties.getProducer().get("key-serializer"));
@@ -30,7 +30,7 @@ public class KafkaConfiguration {
 	}
 	
 	@Bean("KafkaSender")
-	public KafkaSender<String, KafkaPayload<MessageDTO>> getKafkaSender(@Qualifier("SenderOptions") SenderOptions<String, KafkaPayload<MessageDTO>> senderOptions){
+	public KafkaSender<String, KafkaPayload<? extends PayloadDTO>> getKafkaSender(@Qualifier("SenderOptions") SenderOptions<String, KafkaPayload<? extends PayloadDTO>> senderOptions){
 		return KafkaSender.create(senderOptions);
 	}
 
